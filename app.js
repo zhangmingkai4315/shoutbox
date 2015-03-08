@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var register=require('./routes/register');
+var messages= require('./lib/messages');
+var session = require('express-session'); 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -19,11 +23,28 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("your secret here"));    
+app.use(session({ 
+    cookie:{maxAge:1000*60*60*24*30}   
+})); 
+app.use(messages);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+//添加注册路由与控制器的函数
+
+
+app.get('/register',register.form);
+app.post('/register',register.submit);
+
+
+
+
+//添加结束
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

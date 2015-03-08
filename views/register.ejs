@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <!-- 增加配置表单代码-->
+    <p>Please fill in the form below to sign up !</p>
+ 	<% include message %>
+ 	<form action="/register" method="post">
+ 		<p><input type="text" name='username' placeholder="Username"/></p>
+ 		<p><input type="password" name='userpass' placeholder="Password"/></p>
+ 		<p><input type="submit" value="Sign up"/></p>
+
+ 	</form>
+    <!-- 增加结束 -->
+
+
+  </body>
+</html>
